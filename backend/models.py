@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Foreig
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
+import models
+import schemas
 
 class User(Base):
     __tablename__ = "users"
