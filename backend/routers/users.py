@@ -33,13 +33,22 @@ def get_user(user_id: int, db: Session = Depends(database.get_db)):
 @router.post("/", response_model=schemas.UserResponse)
 def create_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
     """Creates a new user in the system."""
+
+    if user.role == "admin":
+        admin_exists = db.query(models.User).filter(models.User.role == "admin").first()
+        if admin_exists:
+            raise HTTPException(
+                status_code=400, 
+                detail="An administrator already exists. There can be only one."
+            )
+
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, 
             detail="Email already registered"
         )
-
+    
     hashed_password = get_password_hash(user.password)
     
     new_user = models.User(
