@@ -4,7 +4,7 @@ import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from dependencies import get_current_user
 
-from routers import users, auth
+from routers import users, auth,rooms,devices,sensors,energy
 
 Base.metadata.create_all(bind=engine)
 
@@ -12,6 +12,11 @@ app = FastAPI(title="Virtual Smart Hub")
 
 app.include_router(auth.router)
 app.include_router(users.router)
+app.include_router(rooms.router)
+app.include_router(devices.router)
+app.include_router(sensors.router)
+app.include_router(energy.router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
