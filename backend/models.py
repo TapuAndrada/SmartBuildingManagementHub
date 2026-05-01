@@ -2,8 +2,7 @@ from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Foreig
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
-import models
-import schemas
+
 
 class User(Base):
     __tablename__ = "users"
@@ -12,8 +11,12 @@ class User(Base):
     username = Column(String, unique=True, index=True, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
-    role = Column(String, default="user") # 'admin' or 'user'
+    role = Column(String, default="user")
     is_active = Column(Boolean, default=True)
+    room_id = Column(Integer, ForeignKey("rooms.id"), nullable=True)  # NEW
+
+    room = relationship("Room", back_populates="users")  # NEW
+
 
 class Room(Base):
     __tablename__ = "rooms"
@@ -23,9 +26,10 @@ class Room(Base):
     floor = Column(Integer, nullable=False)
     target_temperature = Column(Float, nullable=True)
 
-    # Relationships
     devices = relationship("Device", back_populates="room")
     sensor_data = relationship("SensorData", back_populates="room")
+    users = relationship("User", back_populates="room")  # NEW
+
 
 class Device(Base):
     __tablename__ = "devices"
@@ -33,13 +37,13 @@ class Device(Base):
     id = Column(Integer, primary_key=True, index=True)
     room_id = Column(Integer, ForeignKey("rooms.id"))
     name = Column(String, nullable=False)
-    device_type = Column(String, nullable=False) # e.g., 'light', 'hvac'
+    device_type = Column(String, nullable=False)
     is_on = Column(Boolean, default=False)
-    settings = Column(JSON, nullable=True) # Great for storing {"brightness": 80} etc.
+    settings = Column(JSON, nullable=True)
 
-    # Relationships
     room = relationship("Room", back_populates="devices")
     energy_data = relationship("EnergyConsumption", back_populates="device")
+
 
 class SensorData(Base):
     __tablename__ = "sensor_data"
@@ -50,8 +54,8 @@ class SensorData(Base):
     humidity = Column(Float, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
 
-    # Relationship
     room = relationship("Room", back_populates="sensor_data")
+
 
 class EnergyConsumption(Base):
     __tablename__ = "energy_consumption"
@@ -61,5 +65,4 @@ class EnergyConsumption(Base):
     consumption_kwh = Column(Float, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
 
-    # Relationship
     device = relationship("Device", back_populates="energy_data")
