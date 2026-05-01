@@ -1,15 +1,15 @@
 # SmartBuildingManagementHub
 
 fill the last 24h with a reading every 15 minutes (good baseline for graphs)
-# python simulate_data.py --mode backfill --hours 24 --interval-min 15
+### python simulate_data.py --mode backfill --hours 24 --interval-min 15
 
 longer history for trend visualization (1 week)
-# python simulate_data.py --mode backfill --hours 168 --interval-min 30  
+### python simulate_data.py --mode backfill --hours 168 --interval-min 30  
 
 
-# frontend:
-##	 npm start
+## frontend:
+#	 npm start
 
-# backend:
-##	 python simulate_data.py --mode live --interval-sec 30
-##	 python main.py
+## backend:
+#	 python simulate_data.py --mode live --interval-sec 30
+#	 python main.py
