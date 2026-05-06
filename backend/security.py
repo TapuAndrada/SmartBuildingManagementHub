@@ -1,6 +1,6 @@
 import bcrypt
 from datetime import datetime, timedelta, timezone
-from jose import jwt
+import jwt
 import os
 from dotenv import load_dotenv
 

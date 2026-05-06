@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import Login from "./components/Login";
+import Register from "./components/Register"; // Importăm noua componentă
 import Dashboard from "./components/Dashboard";
 import { getMe } from "./api/api";
 
 function App() {
-  const [token, setToken] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+ const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [userEmail, setUserEmail] = useState(localStorage.getItem("email") || "");
   const [currentUser, setCurrentUser] = useState(null);
+  const [view, setView] = useState("login"); 
 
-  // Fetch the logged-in user's role & room_id whenever the token changes
   useEffect(() => {
     if (!token) {
       setCurrentUser(null);
@@ -30,21 +31,38 @@ function App() {
     };
   }, [token]);
 
-  const handleLogin = (token, email) => {
+ const handleLogin = (token, email) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("email", email);
     setToken(token);
     setUserEmail(email);
   };
 
-  const handleLogout = () => {
+ const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
     setToken("");
     setUserEmail("");
     setCurrentUser(null);
+    setView("login");
   };
 
   return (
     <div className="app">
       {!token ? (
-        <Login onLogin={handleLogin} />
+        // Dacă nu avem token, comutăm între Login și Register
+        <>
+          {view === "login" ? (
+            <Login 
+              onLogin={handleLogin} 
+              onSwitchToRegister={() => setView("register")} 
+            />
+          ) : (
+            <Register 
+              onSwitchToLogin={() => setView("login")} 
+            />
+          )}
+        </>
       ) : (
         <Dashboard
           token={token}

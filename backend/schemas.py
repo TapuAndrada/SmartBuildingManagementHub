@@ -7,9 +7,13 @@ class UserBase(BaseModel):
     username: str
     email: EmailStr
     role: str = "user"
+    is_approved: bool = False
+    room_id: Optional[int] = None
 
 
 class UserCreate(UserBase):
+    username: str
+    email: EmailStr
     password: str
     room_id: Optional[int] = None  # NEW
 
@@ -26,6 +30,8 @@ class UserResponse(UserBase):
 class RoomSwap(BaseModel):  # NEW
     room_id: int
 
+class UserApproval(BaseModel):  
+    is_approved: bool = True
 
 # --- AUTH ---
 class Token(BaseModel):

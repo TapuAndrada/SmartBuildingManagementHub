@@ -10,10 +10,13 @@ import {
 } from "../api/api";
 import Rooms from "./Rooms";
 import Energy from "./Energy";
+import AdminPanel from "./AdminPanel";
 import { LightbulbOff, Cable, House } from "lucide-react";
 import { Thermometer, Lightbulb, Zap, Cpu } from "lucide-react";
 
 function Dashboard({ token, email, currentUser, setCurrentUser, onLogout }) {
+
+
   const [rooms, setRooms] = useState([]);
   const [devices, setDevices] = useState([]);
   const [sensorData, setSensorData] = useState(null);
@@ -154,7 +157,33 @@ function Dashboard({ token, email, currentUser, setCurrentUser, onLogout }) {
       console.error("Failed to swap room:", err);
     }
   };
+ // Găsește acest bloc în Dashboard.jsx, după useEffect-uri
+// În Dashboard.jsx
+if (currentUser && String(currentUser.is_approved) === "false" && !isAdmin) {
+  return (
+    <div className="pending-overlay">
+      <div className="pending-card">
+        <div style={{ fontSize: '50px' }}>⏳</div>
+        
+        {/* Titlu nou, mai ușor de înțeles */}
+        <h1>Awaiting Approval</h1> 
+        
+        <p>
+          Hello, <strong>{email?.split("@")[0]}</strong>. <br />
+          Your account is being reviewed by an administrator.
+        </p>
 
+        <button onClick={() => window.location.reload()} className="btn-check">
+          Check Status
+        </button>
+
+        <button onClick={onLogout} className="btn-logout-link">
+          Logout and try another account
+        </button>
+      </div>
+    </div>
+  );
+}
   return (
     <div className="dashboard">
       <aside className="sidebar">
@@ -170,6 +199,14 @@ function Dashboard({ token, email, currentUser, setCurrentUser, onLogout }) {
           >
             Dashboard
           </button>
+          {isAdmin && (
+            <button
+              className={page === "admin" ? "active" : ""}
+              onClick={() => setPage("admin")}
+            >
+              Admin Panel
+            </button>
+          )}
           <button
             className={page === "rooms" ? "active" : ""}
             onClick={() => setPage("rooms")}
@@ -288,14 +325,13 @@ function Dashboard({ token, email, currentUser, setCurrentUser, onLogout }) {
                   <div
                     className="energy-bar"
                     style={{
-                      width: `${
-                        totalEnergy !== "--"
-                          ? Math.min(
-                              (totalEnergy / maxDailyEnergy) * 100,
-                              100
-                            )
-                          : 0
-                      }%`,
+                      width: `${totalEnergy !== "--"
+                        ? Math.min(
+                          (totalEnergy / maxDailyEnergy) * 100,
+                          100
+                        )
+                        : 0
+                        }%`,
                     }}
                   />
                 </div>
@@ -380,6 +416,9 @@ function Dashboard({ token, email, currentUser, setCurrentUser, onLogout }) {
             currentUser={currentUser}
             allRooms={rooms}
           />
+        )}
+        {page === "admin" && (
+          <AdminPanel token={token} />
         )}
       </main>
     </div>

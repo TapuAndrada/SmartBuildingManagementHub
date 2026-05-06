@@ -42,6 +42,8 @@ def seed_admin(db):
         password_hash=get_password_hash("admin123"),
         role="admin",
         is_active=True,
+        is_admin=True,   
+        is_approved=True
     ))
     db.commit()
     print("✓ Admin created (admin@smarthome.com / admin123).")

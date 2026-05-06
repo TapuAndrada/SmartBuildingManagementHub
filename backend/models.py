@@ -14,8 +14,12 @@ class User(Base):
     role = Column(String, default="user")
     is_active = Column(Boolean, default=True)
     room_id = Column(Integer, ForeignKey("rooms.id"), nullable=True)  # NEW
+    is_approved = Column(Boolean, default=False)
+    is_admin = Column(Boolean, default=False)
 
     room = relationship("Room", back_populates="users")  # NEW
+
+
 
 
 class Room(Base):

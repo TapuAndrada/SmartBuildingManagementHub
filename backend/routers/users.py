@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 import schemas, models, database, dependencies
 from security import get_password_hash
+from dependencies import get_current_admin
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -72,3 +73,24 @@ def delete_user(user_id: int, db: Session = Depends(database.get_db)):
     db.delete(user)
     db.commit()
     return {"message": f"User {user_id} deleted"}
+
+
+@router.patch("/{user_id}/approve", response_model=schemas.UserResponse)
+def approve_user_access(
+    user_id: int, 
+    db: Session = Depends(database.get_db),
+    current_admin: models.User = Depends(get_current_admin) 
+):
+    user_to_approve = db.query(models.User).filter(models.User.id == user_id).first()
+    
+    if not user_to_approve:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user_to_approve.is_admin:
+         raise HTTPException(status_code=400, detail="Admin accounts are approved by default")
+
+    user_to_approve.is_approved = True
+    db.commit()
+    db.refresh(user_to_approve)
+    
+    return user_to_approve
