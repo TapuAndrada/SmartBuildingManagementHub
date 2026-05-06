@@ -83,8 +83,6 @@ body {
   box-shadow: 0 15px 30px rgba(37, 99, 235, 0.35);
 }
 
-/* DASHBOARD */
-
 .dashboard {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -104,6 +102,7 @@ body {
   margin-bottom: 28px;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
 .dashboard-header h1 {
   font-weight: 700;
   letter-spacing: 0.3px;
@@ -122,19 +121,6 @@ body {
   font-size: 15px;
 }
 
-.date-box,
-.time-box {
-  background: rgba(255, 255, 255, 0.06);
-  padding: 14px 18px;
-  border-radius: 16px;
-  min-width: 150px;
-}
-
-.date-box strong,
-.time-box strong {
-  font-size: 15px;
-  color: #ffffff;
-}
 .header-right {
   display: flex;
   flex-direction: column;
@@ -169,8 +155,6 @@ body {
   font-weight: 700;
 }
 
-/* SIDEBAR */
-
 .sidebar {
   padding: 32px 24px;
   background: #020617;
@@ -182,23 +166,24 @@ body {
   font-size: 26px;
   color: #ffffff;
 }
+
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 14px;              /* mai mult spațiu între icon și text */
-  margin-bottom: 40px;    /* mai aerisit față de meniu */
-  
-  font-size: 26px;        /* mai mare */
+  gap: 14px;
+  margin-bottom: 40px;
+  font-size: 26px;
   font-weight: 700;
-  letter-spacing: 0.5px;  /* mai elegant */
-  
+  letter-spacing: 0.5px;
   color: #ffffff;
 }
+
 .sidebar-logo svg {
   width: 30px;
   height: 30px;
   color: #60a5fa;
 }
+
 .sidebar nav {
   display: flex;
   flex-direction: column;
@@ -250,10 +235,11 @@ body {
   transform: translateY(-2px);
 }
 
-/* CONTENT */
-
 .content {
   padding: 30px;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
 }
 
 .topbar h1 {
@@ -263,8 +249,6 @@ body {
 .topbar p {
   color: #94a3b8;
 }
-
-/* STATS */
 
 .stats {
   display: grid;
@@ -284,10 +268,28 @@ body {
 }
 
 .stat-card h2 {
-  margin-top: 10px;
+  color: #60a5fa;
+  font-size: 24px;
+  margin: 8px 0;
 }
-/* quick actions*/
 
+.stat-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9ca3af;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.stat-header svg {
+  color: #60a5fa;
+}
+
+.stat-sub {
+  color: #94a3b8;
+  font-size: 13px;
+}
 
 .quick-actions {
   margin-top: 34px;
@@ -363,25 +365,6 @@ body {
 .quick-action-btn:nth-child(3) svg {
   color: #22c55e;
 }
-
-
-
-
-
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-  .quick-actions-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  .quick-actions-grid {
-    grid-template-columns: 1fr;
-  }
-}
-/* ROOMS PREVIEW */
 
 .rooms-preview-section {
   margin-top: 34px;
@@ -466,7 +449,6 @@ body {
 .manage-room-btn:hover {
   background: #1d4ed8;
 }
-/* ROOMS */
 
 .rooms-grid {
   display: grid;
@@ -483,6 +465,7 @@ body {
 .room-control-card {
   min-height: 360px;
 }
+
 .turn-off-room-btn {
   margin-top: 16px;
   width: 100%;
@@ -500,6 +483,7 @@ body {
   background: #475569;
   transform: translateY(-2px);
 }
+
 .room-info {
   margin: 20px 0 26px;
   display: grid;
@@ -524,6 +508,10 @@ body {
 .room-info strong {
   color: #ffffff;
   font-size: 16px;
+}
+
+.room-info p {
+  margin: 6px 0;
 }
 
 .devices-title {
@@ -555,7 +543,7 @@ body {
 }
 
 .device-control p {
-  margin: 0;
+  margin: 4px 0 0;
   color: #94a3b8;
   font-size: 14px;
 }
@@ -568,6 +556,11 @@ body {
   color: white;
   font-weight: 700;
   cursor: pointer;
+}
+
+.device-control button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .toggle-on {
@@ -598,56 +591,12 @@ body {
 
 .add-device-form {
   margin-top: 14px;
-  display: grid;
-  grid-template-columns: 1fr 120px 100px 90px;
-  gap: 10px;
-}
-
-.add-device-form input,
-.add-device-form select {
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #0f172a;
-  color: white;
-  outline: none;
-}
-
-.add-device-form button {
-  border: none;
-  border-radius: 12px;
-  background: #22c55e;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-}
-.add-device-btn {
-  margin-top: 14px;
-  width: 100%;
-  padding: 12px;
-  border-radius: 14px;
-  border: none;
-  background: #2563eb;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.25s;
-}
-
-.add-device-btn:hover {
-  background: #1d4ed8;
-}
-
-/* FORM FIX */
-.add-device-form {
-  margin-top: 14px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   align-items: center;
 }
 
-/* INPUTS */
 .add-device-form input,
 .add-device-form select {
   padding: 10px 12px;
@@ -658,12 +607,10 @@ body {
   min-width: 120px;
 }
 
-/* INPUT mai mare */
 .add-device-form input {
   flex: 1;
 }
 
-/* SAVE BUTTON */
 .add-device-form button {
   padding: 10px 16px;
   border-radius: 10px;
@@ -673,7 +620,7 @@ body {
   font-weight: 700;
   cursor: pointer;
 }
-/* Energy */
+
 .energy-stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(180px, 1fr));
@@ -688,8 +635,6 @@ body {
   color: white;
   transition: 0.25s;
 }
-
-
 
 .energy-card p {
   color: #94a3b8;
@@ -726,7 +671,6 @@ body {
   transition: 0.25s;
 }
 
-
 .energy-room-card h3 {
   margin: 0;
   font-size: 16px;
@@ -743,6 +687,7 @@ body {
   font-weight: 700;
   color: #22c55e;
 }
+
 .energy-devices-section {
   margin-top: 40px;
 }
@@ -783,6 +728,7 @@ body {
   color: #94a3b8;
   font-size: 13px;
 }
+
 .top-consumers-section {
   margin-top: 40px;
 }
@@ -830,132 +776,6 @@ body {
   font-size: 13px;
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-  .login-glass {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    display: none;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 600px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .login-left h1 {
-    font-size: 2.3rem;
-  }
-
-  .content {
-    padding: 20px;
-  }
-}
-
-.section-header {
-  margin-bottom: 25px;
-}
-
-.section-header h1 {
-  margin: 0;
-}
-
-.section-header p {
-  color: #94a3b8;
-}
-
-
-.back-btn {
-  margin-bottom: 20px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
-  background: #334155;
-  color: white;
-  cursor: pointer;
-}
-
-.back-btn:hover {
-  background: #475569;
-}
-
-.room-control-card {
-  min-height: 260px;
-}
-
-.room-info {
-  margin: 15px 0;
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.room-info p {
-  margin: 6px 0;
-}
-
-.device-control {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  background: #0f172a;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.device-control p {
-  margin: 4px 0 0;
-  color: #94a3b8;
-  font-size: 0.9rem;
-}
-
-.device-control button {
-  padding: 8px 14px;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.stat-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #9ca3af;
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-.stat-card h2 {
-  color: #60a5fa; /* accent color */
-  font-size: 24px;
-  margin: 8px 0;
-}
-
-.stat-sub {
-  color: #6b7280;
-  font-size: 13px;
-}
-
 .energy-progress {
   height: 6px;
   background: rgba(255,255,255,0.08);
@@ -970,21 +790,31 @@ body {
   transition: width 0.4s ease;
 }
 
-.stat-sub {
+.section-header {
+  margin-bottom: 25px;
+}
+
+.section-header h1 {
+  margin: 0;
+}
+
+.section-header p {
   color: #94a3b8;
 }
 
-.stat-header svg {
-  color: #60a5fa;
+.back-btn {
+  margin-bottom: 20px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #334155;
+  color: white;
+  cursor: pointer;
 }
 
-.content {
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
+.back-btn:hover {
+  background: #475569;
 }
-
-/* === Additions for v2 (don't change existing styles) === */
 
 .role-badge {
   display: inline-block;
@@ -1052,11 +882,6 @@ body {
   accent-color: #60a5fa;
 }
 
-.device-control button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
 .empty-devices {
   color: #94a3b8;
   font-style: italic;
@@ -1079,7 +904,6 @@ body {
   font-weight: 700;
 }
 
-/* Ecranul de fundal care acoperă tot */
 .pending-overlay {
   height: 100vh;
   width: 100vw;
@@ -1095,7 +919,6 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Cardul central */
 .pending-card {
   background-color: #2d3748;
   padding: 40px;
@@ -1141,8 +964,6 @@ body {
   font-size: 14px;
 }
 
-
-/* Container și Text */
 .admin-container {
   padding: 40px !important;
   width: 100%;
@@ -1154,7 +975,6 @@ body {
   display: block;
 }
 
-/* Structura Tabelului */
 .admin-table {
   width: 100% !important;
   border-collapse: collapse !important;
@@ -1176,7 +996,6 @@ body {
   vertical-align: middle;
 }
 
-/* Badge-ul de Status (Waiting) */
 .status-badge {
   background-color: #4a5568 !important;
   color: #edf2f7 !important;
@@ -1186,7 +1005,6 @@ body {
   font-weight: bold;
 }
 
-/* Butonul Verde (Grant Access) */
 .btn-grant {
   background-color: #27ae60 !important;
   color: white !important;
@@ -1203,7 +1021,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Buton de ștergere */
 .btn-delete {
   background-color: #e53e3e !important;
   color: white !important;
@@ -1218,7 +1035,6 @@ body {
   background-color: #c53030 !important;
 }
 
-/* Butonul de adăugare user (plasat sus) */
 .btn-add-user {
   background-color: #3182ce;
   color: white;
@@ -1230,7 +1046,6 @@ body {
   font-weight: bold;
 }
 
-/* Formularul de adăugare rapidă */
 .admin-add-form {
   background: #2d3748;
   padding: 20px;
@@ -1249,7 +1064,6 @@ body {
   color: white;
 }
 
-/* Containerul pentru titlu și butonul de Add User */
 .admin-header {
   display: flex !important;
   justify-content: space-between !important;
@@ -1258,19 +1072,17 @@ body {
   width: 100%;
 }
 
-/* Titlurile de secțiune (Awaiting Approval / Active Users) */
 .admin-section h3 {
   color: #edf2f7 !important;
-  border-left: 5px solid #3182ce !important; /* Bordura albastră */
+  border-left: 5px solid #3182ce !important;
   padding-left: 15px !important;
   margin: 40px 0 20px 0 !important;
   font-size: 1.4rem !important;
   text-align: left !important;
 }
 
-
 .pending-style tbody tr {
-  border-left: 5px solid #f6e05e !important; 
+  border-left: 5px solid #f6e05e !important;
   background-color: rgba(246, 224, 94, 0.05) !important;
 }
 
@@ -1283,7 +1095,6 @@ body {
   border: 1px dashed #4a5568 !important;
 }
 
-/* Mesajul de eroare în formular */
 .error-alert {
   color: #721c24;
   background-color: #f8d7da;
@@ -1295,15 +1106,13 @@ body {
   text-align: center;
 }
 
-/* Containerul pentru textul de sub butonul de login */
 .auth-switch-text {
   margin-top: 15px;
   text-align: center;
   font-size: 14px;
-  color: #a0aec0; /* Sau culoarea dorită pentru textul secundar */
+  color: #a0aec0;
 }
 
-/* Butonul care arată ca un link (Register here) */
 .btn-link {
   background: none !important;
   border: none !important;
@@ -1313,12 +1122,137 @@ body {
   padding: 0 !important;
   margin: 0 !important;
   font-size: 14px !important;
-  font-weight: 500 !important; 
-  display: inline !important; 
-  width: auto !important; 
+  font-weight: 500 !important;
+  display: inline !important;
+  width: auto !important;
 }
 
 .btn-link:hover {
   color: #2980b9 !important;
-  text-decoration: none !important; 
+  text-decoration: none !important;
+}
+
+.add-room-form {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  background-color: #1e293b !important;
+  padding: 20px !important;
+  border-radius: 12px !important;
+  border: 1px solid #334155 !important;
+  margin-top: 10px !important;
+  align-items: center !important;
+}
+
+.add-room-form input {
+  background-color: #1a202c !important;
+  color: white !important;
+  border: 1px solid #4a5568 !important;
+  padding: 10px 15px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  outline: none;
+  min-width: 200px;
+}
+
+.add-room-form input::placeholder {
+  color: #718096;
+}
+
+.add-room-form input:focus {
+  border-color: #3182ce !important;
+}
+
+.add-room-bar .add-device-btn {
+  background-color: #2563eb !important;
+  color: white !important;
+  border: none !important;
+  padding: 6px 16px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease !important;
+  width: auto !important;
+  min-width: 150px !important;
+  display: block !important;
+  margin-bottom: 10px !important;
+  font-size: 13px !important;
+  height: 32px !important;
+}
+
+.add-room-bar .add-device-btn:hover {
+  background-color: #1d4ed8 !important;
+}
+
+.add-room-bar .add-device-btn:active {
+  transform: scale(0.98);
+}
+
+.add-room-form .btn-save {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 6px 16px !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px !important;
+  height: 32px !important;
+}
+
+.add-room-form .btn-save:hover {
+  background-color: #7b75c6 !important;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .login-glass {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .login-left h1 {
+    font-size: 2.3rem;
+  }
+
+  .content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
 }

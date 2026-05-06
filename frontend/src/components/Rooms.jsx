@@ -41,8 +41,8 @@ function Rooms({
   // Add room form (admin only)
   const [showAddRoom, setShowAddRoom] = useState(false);
   const [roomName, setRoomName] = useState("");
-  const [roomFloor, setRoomFloor] = useState(1);
-  const [roomTemp, setRoomTemp] = useState(22);
+  const [roomFloor, setRoomFloor] = useState("");
+  const [roomTemp, setRoomTemp] = useState("");
 
   const isAdmin = currentUser?.role === "admin";
   const userRoomId = currentUser?.room_id ?? null;
@@ -145,8 +145,8 @@ function Rooms({
       });
       setRooms((prev) => [...prev, newRoom]);
       setRoomName("");
-      setRoomFloor(1);
-      setRoomTemp(22);
+      setRoomFloor("");
+      setRoomTemp("");
       setShowAddRoom(false);
     } catch (err) {
       console.error("Eroare la adăugarea camerei:", err);
@@ -179,41 +179,47 @@ function Rooms({
 
       {/* ADMIN: Add Room */}
       {isAdmin && (
-        <div className="add-room-bar">
-          <button
-            className="add-device-btn"
-            style={{ maxWidth: 220 }}
-            onClick={() => setShowAddRoom((v) => !v)}
-          >
-            {showAddRoom ? "Cancel" : "+ Add Room"}
-          </button>
+  <div className="add-room-bar">
+    <button
+      className="add-device-btn"
+      style={{ maxWidth: 220 }}
+      onClick={() => setShowAddRoom((v) => !v)}
+    >
+      {showAddRoom ? "Cancel" : "+ Add Room"}
+    </button>
 
-          {showAddRoom && (
-            <form className="add-device-form" onSubmit={handleAddRoom}>
-              <input
-                type="text"
-                placeholder="Room name"
-                value={roomName}
-                onChange={(e) => setRoomName(e.target.value)}
-              />
-              <input
-                type="number"
-                placeholder="Floor"
-                value={roomFloor}
-                onChange={(e) => setRoomFloor(e.target.value)}
-              />
-              <input
-                type="number"
-                step="0.5"
-                placeholder="Target °C"
-                value={roomTemp}
-                onChange={(e) => setRoomTemp(e.target.value)}
-              />
-              <button type="submit">Save Room</button>
-            </form>
-          )}
-        </div>
-      )}
+    {showAddRoom && (
+      <form className="add-room-form" onSubmit={handleAddRoom}>
+        <input
+          type="text"
+          className="admin-input"
+          placeholder="Room name"
+          value={roomName}
+          onChange={(e) => setRoomName(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          className="admin-input"
+          placeholder="Floor"
+          value={roomFloor}
+          onChange={(e) => setRoomFloor(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          step="0.5"
+          className="admin-input"
+          placeholder="Target °C"
+          value={roomTemp}
+          onChange={(e) => setRoomTemp(e.target.value)}
+          required
+        />
+        <button type="submit" className="btn-save">Save Room</button>
+      </form>
+    )}
+  </div>
+)}
 
       <div className="rooms-grid">
         {visibleRooms.map((room) => {
